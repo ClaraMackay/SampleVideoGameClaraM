@@ -5,7 +5,8 @@
 -- Date: Month Day, Year
 -- Description: This is the main menu, displaying the credits, instructions & play buttons.
 -----------------------------------------------------------------------------------------
-
+-- hide the status bar 
+display.setStatusBar(HiddenStatusBar)
 -----------------------------------------------------------------------------------------
 -- INITIALIZATIONS
 -----------------------------------------------------------------------------------------
@@ -52,7 +53,13 @@ local function Level1ScreenTransition( )
     composer.gotoScene( "level1_screen", {effect = "zoomInOutFade", time = 1000})
 end    
 
--- INSERT LOCAL FUNCTION DEFINITION THAT GOES TO INSTRUCTIONS SCREEN 
+-----------------------------------------------------------------------------------------
+
+-- Creating Transition Function to Instructions Page
+local function InstructionsTransition( )       
+    composer.gotoScene( "instructions_screen", {effect = "flipFadeOutIn", time = 500})
+end 
+
 
 -----------------------------------------------------------------------------------------
 -- GLOBAL SCENE FUNCTIONS
@@ -118,8 +125,21 @@ function scene:create( event )
             onRelease = CreditsTransition
         } ) 
     
-    -- ADD INSTRUCTIONS BUTTON WIDGET
+    -----------------------------------------------------------------------------------------
+    -- Creating Instructions Button
+    playButton = widget.newButton( 
+        {   
+            -- Set its position on the screen relative to the screen size
+            x = display.contentWidth/2,
+            y = display.contentHeight*7/8,
 
+            -- Insert the images here
+            defaultFile = "Images/Instructions Button Unpressed.png",
+            overFile = "Images/Instructions Button Pressed.png",
+
+            -- When the button is released, call the Level1 screen transition function
+            onRelease = InstructionsTransition          
+        } )
     -----------------------------------------------------------------------------------------
 
     -- Associating button widgets with this scene
